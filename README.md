@@ -7,8 +7,7 @@ Anaconda - Python 3.7
 
 ## Algorithm:
 ### Step1:
-Read the gray imread()
-
+Read the gray and color image using imread()
 
 ### Step2:
 Print the image using imshow().
@@ -26,52 +25,56 @@ The Histogram of gray scale image and color image is shown.
 
 
 ## Program:
-python
-## Developed By: N.bharath
-## Register Number: 21222323230030
 
-# Input Grayscale Image
+python code
 ```
+python
+
 import cv2
-from matplotlib import pyplot as plt
-# Load the color image
-image = cv2.imread('image.jpg')
-# Convert the image to grayscale
+import numpy as np
+import matplotlib.pyplot as plt
+
+image = cv2.imread('iron.jpg')
+
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+hist_original = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
+
+equalized_image = cv2.equalizeHist(gray_image)
+
+hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
+
+plt.figure(figsize=(10, 7))
+
+plt.subplot(2, 2, 1)
 plt.imshow(gray_image, cmap='gray')
 plt.title('Original Grayscale Image')
 plt.axis('off')
-```
-![alt text](image.png)
 
-# Histogram of Grayscale Image
-```
-hist_original = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
+plt.subplot(2, 2, 2)
+plt.imshow(equalized_image, cmap='gray')
+plt.title('Equalized Image')
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
 plt.plot(hist_original, color='black')
 plt.title('Original Histogram')
 plt.xlim([0, 256])
-```
-![alt text](image-1.png)
 
-# Equalization
-```
-# Apply histogram equalization
-equalized_image = cv2.equalizeHist(gray_image)
-plt.imshow(equalized_image, cmap='grey')
-plt.title('Equalized Image')
-plt.axis('off')
-```
-![alt text](image-2.png)
-# Equalized Histogram
-```
-hist_original = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
-plt.plot(hist_original, color='black')
+
+
+plt.subplot(2, 2, 4)
+plt.plot(hist_equalized, color='black')
 plt.title('Equalized Histogram')
 plt.xlim([0, 256])
+
+plt.tight_layout()
+plt.show()
+
 ```
-![alt text](image-3.png)
+## Output:
 
-
+![Screenshot 2025-04-22 201118](https://github.com/user-attachments/assets/a10cefb4-8e8e-49c9-9215-1555236c0406)
 
 
 ## Result: 
